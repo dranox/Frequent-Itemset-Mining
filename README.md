@@ -62,4 +62,75 @@ The level-wise approach of Apriori algorithm can be descibed as follow:
     4. Use $L_k$ to generate a collection of candidate itemsets $C_{k+1}$ of size k+1.
     5. k=k+1.
 ## FP Growth
-Implement on my own
+### Steps of the FP-Growth Algorithm
+
+1. **Build the FP-Tree**:
+    - Scan the database to determine the frequency of each item.
+    - Discard infrequent items (those below the support threshold).
+    - Sort the frequent items in descending order of their frequency.
+    - Create the root of the FP-tree, labeled with “null”.
+    - For each transaction in the database, add it to the FP-tree. Use the order of frequent items to ensure common prefixes are shared.
+
+2. **Mine the FP-Tree**:
+    - Starting from each frequent item, construct its conditional pattern base, a sub-database containing the set of prefix paths in the FP-tree co-occurring with the item.
+    - Construct the conditional FP-tree from the conditional pattern base.
+    - Recursively mine the conditional FP-tree to find frequent patterns. 
+
+### Example of the FP-Growth Algorithm
+
+1. **Building the FP-Tree**:
+    - Given a database of transactions, e.g., 
+
+        ```
+        T1: {A, B, D}
+        T2: {B, C, E}
+        T3: {A, B, C, E}
+        T4: {A, D, E}
+        T5: {A, B, C, E}
+        ```
+
+    - Scan the database to find the frequency of each item:
+
+        ```
+        A: 4, B: 3, C: 3, D: 2, E: 3
+        ```
+
+    - Assume the support threshold is 2.
+    - Sort items by frequency and construct the FP-tree. The tree will look like this (showing shared prefixes):
+
+        ```
+        null
+        ├── A: 4
+        │   ├── B: 2
+        │   │   ├── D: 1
+        │   │   └── C: 1
+        │   │       └── E: 1
+        │   ├── D: 1
+        │   └── C: 1
+        │       └── E: 1
+        └── B: 1
+            └── C: 1
+                └── E: 1
+        ```
+
+2. **Mining the FP-Tree**:
+    - Start from the least frequent item and construct its conditional pattern base.
+    - For example, starting with `E`:
+
+        - The conditional pattern base for `E`:
+            ```
+            {A, C}: 2
+            {B, C}: 1
+            {A}: 1
+            ```
+
+        - Construct the conditional FP-tree for `E`:
+
+            ```
+            null
+            ├── A: 3
+            └── C: 3
+                └── A: 2
+            ```
+
+    - Recursively mine this tree to find frequent patterns involving `E`.

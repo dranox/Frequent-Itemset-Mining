@@ -15,7 +15,7 @@ $\Rightarrow$ items people frequently buy together.
 - Items = webpages, transactions = words. Unusual words appearing together in a large number of documents, e.g., “Brad” and “Angelina,” may indicate an interesting relationship.
 - Transactions = Sentences, Items = Documents containing those sentences. Items that appear together too often could represent plagiarism.
 ## Transactional Database
-A transactional database $D$ consists of $N$ transactions: $D = \{ T_1, T_2, \ldots, T_N \}$. A transaction $$T_n \in D (1 \le n \le N)$$ contains one or more items and that $$I= \left\{ i_1,i_2,…,i_M \right\}$$ is the set of distinct items in $D$, $T_n \subset I$. Commonly, a transactional database is represented by a flat file instead of a database system: items are non-negative integers, each row represents a transaction, items in a transaction separated by space.
+A transactional database $D$ consists of $N$ transactions: $D = \{ T_1, T_2, \ldots, T_N \}$. A transaction $T_n \in D (1 \le n \le N)$ contains one or more items and that $I= \{ i_1,i_2,…,i_M \}$ is the set of distinct items in $D$, $T_n \subset I$. Commonly, a transactional database is represented by a flat file instead of a database system: items are non-negative integers, each row represents a transaction, items in a transaction separated by space.
 
 Example: 
 
